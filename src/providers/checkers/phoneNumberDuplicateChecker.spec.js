@@ -2,7 +2,7 @@ import PhoneNumberDuplicateChecker from './phoneNumberDuplicateChecker';
 import Contact from "../../model/contact";
 
 describe('PhoneNumberDuplicateChecker', () => {
-  it('will properly identify a unique phone number', () => {
+  it('will identify a unique phone number', () => {
     let contact = new Contact();
     contact.phone = '555-555-5555';
 
@@ -23,14 +23,15 @@ describe('PhoneNumberDuplicateChecker', () => {
 
     expect(dictionary.phoneNumbers[contact.phone]).toBe(true);
   });
-  it('will properly identify a unique phone number', () => {
+
+  it('will identify a duplicate phone number', () => {
     let contact = new Contact();
     contact.phone = '555-555-5555';
 
-    let dictionary = { phoneNumbers: {} };
+    let dictionary = { phoneNumbers: { '555-555-5555': true } };
 
     let isDuplicate = PhoneNumberDuplicateChecker.checkContact(contact, dictionary);
 
-    expect(isDuplicate).toBe(false);
+    expect(isDuplicate).toBe(true);
   });
 });
