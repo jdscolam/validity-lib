@@ -1,0 +1,38 @@
+{
+  "name": "validity-lib",
+  "version": "1.0.0",
+  "description": "A small duplication identification library for Node",
+  "main": "index.js",
+  "module": "main.js",
+  "scripts": {
+    "start": "node -r esm main.js",
+    "test": "karma start karma.config.js --single-run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jdscolam/validity-lib.git"
+  },
+  "author": "Jon Scolamiero",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jdscolam/validity-lib/issues"
+  },
+  "homepage": "https://github.com/jdscolam/validity-lib#readme",
+  "dependencies": {
+    "esm": "^3.0.84",
+    "fs-readfile-promise": "^3.0.1",
+    "lodash": "^4.17.11"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.4",
+    "babel-preset-env": "^1.7.0",
+    "jasmine-core": "^3.2.1",
+    "karma": "^3.0.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-jasmine": "^1.1.2",
+    "karma-mocha-reporter": "^2.2.5",
+    "karma-webpack": "^3.0.5",
+    "webpack": "^4.20.2"
+  }
+}
