@@ -23,7 +23,9 @@ export default class nameAddressDuplicateChecker{
     if(!dictionary)
       throw 'No dictionary passed in';
 
-    return _.has(dictionary.emails, contact.email);
+    let key = this.generateKey(contact);
+
+    return _.has(dictionary.nameAddresses, key);
   }
 
   static addDuplicateContact(contact, dictionary) {
@@ -33,7 +35,9 @@ export default class nameAddressDuplicateChecker{
     if(!dictionary)
       throw 'No dictionary passed in';
 
-    if(!_.has(dictionary.emails, contact.email))
-      dictionary.emails[contact.email] = true;
+    let key = this.generateKey(contact);
+
+    if(!_.has(dictionary.nameAddresses, key))
+      dictionary.emails[contact.key] = true;
   }
 }
