@@ -24,6 +24,12 @@ export default class nameAddressDuplicateChecker{
     if(!dictionary)
       throw 'No dictionary passed in';
 
+    if(!_.has(dictionary, 'nameAddresses')){
+      dictionary.nameAddresses = {};
+
+      return null;
+    }
+
     let nameAddressKey = this.generateKey(contact);
 
     if(_.has(dictionary.nameAddresses, nameAddressKey))

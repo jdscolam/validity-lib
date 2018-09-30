@@ -51,4 +51,17 @@ describe('PhoneNumberDuplicateChecker', () => {
 
     expect(dictionary.phoneNumbers[contact.phone]).toBe(masterUuid);
   });
+
+  it('will create phoneNumbers dictionary entry if non exists', () => {
+    let contact = new Contact();
+    contact.phone = '555-555-5555';
+
+    let dictionary = { };
+
+    let duplicateUuid = PhoneNumberDuplicateChecker.checkContact(contact, dictionary);
+
+    expect(duplicateUuid).toBeNull();
+    expect(_.has(dictionary, 'phoneNumbers')).toBe(true);
+    expect(_.isEmpty(dictionary.phoneNumbers)).toBe(true);
+  });
 });

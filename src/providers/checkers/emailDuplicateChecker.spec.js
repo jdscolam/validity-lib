@@ -50,4 +50,17 @@ describe('EmailDuplicateChecker', () => {
 
     expect(dictionary.emails[contact.email]).toBe(masterUuid);
   });
+
+  it('will create emails dictionary entry if non exists', () => {
+    let contact = new Contact();
+    contact.email = 'test@test.com';
+
+    let dictionary = { };
+
+    let duplicateUuid = EmailDuplicateChecker.checkContact(contact, dictionary);
+
+    expect(duplicateUuid).toBeNull();
+    expect(_.has(dictionary, 'emails')).toBe(true);
+    expect(_.isEmpty(dictionary.emails)).toBe(true);
+  });
 });

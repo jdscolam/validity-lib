@@ -8,6 +8,12 @@ export default class PhoneNumberDuplicateChecker{
     if(!dictionary)
       throw 'No dictionary passed in';
 
+    if(!_.has(dictionary, 'phoneNumbers')){
+      dictionary.phoneNumbers = {};
+
+      return null;
+    }
+
     return _.has(dictionary.phoneNumbers, contact.phone) ? dictionary.phoneNumbers[contact.phone] : null;
   }
 

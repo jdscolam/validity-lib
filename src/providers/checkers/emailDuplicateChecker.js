@@ -8,6 +8,12 @@ export default class EmailDuplicateChecker{
     if(!dictionary)
       throw 'No dictionary passed in';
 
+    if(!_.has(dictionary, 'emails')){
+      dictionary.emails = {};
+
+      return null;
+    }
+
     return _.has(dictionary.emails, contact.email) ? dictionary.emails[contact.email] : null;
   }
 

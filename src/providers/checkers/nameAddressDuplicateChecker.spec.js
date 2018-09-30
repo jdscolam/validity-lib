@@ -133,4 +133,20 @@ describe('NameAddressDuplicateChecker', () => {
 
     expect(dictionary.nameAddresses['JN SM0 555 Some Street 12345']).toBe(masterUuid);
   });
+
+  it('will create nameAddresses dictionary entry if non exists', () => {
+    let contact = new Contact();
+    contact.firstName = 'Jon';
+    contact.lastName = 'Smith';
+    contact.address1 = '555 Some Street';
+    contact.zip = '12345';
+
+    let dictionary = { };
+
+    let duplicateUuid = NameAddressDuplicateChecker.checkContact(contact, dictionary);
+
+    expect(duplicateUuid).toBeNull();
+    expect(_.has(dictionary, 'nameAddresses')).toBe(true);
+    expect(_.isEmpty(dictionary.nameAddresses)).toBe(true);
+  });
 });
