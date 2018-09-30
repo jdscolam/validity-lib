@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import metaphone from 'metaphone';
+import levenshtein from 'js-levenshtein';
 
 export default class nameAddressDuplicateChecker{
   static generateKey(contact){
@@ -23,9 +24,24 @@ export default class nameAddressDuplicateChecker{
     if(!dictionary)
       throw 'No dictionary passed in';
 
-    let key = this.generateKey(contact);
+    let nameAddressKey = this.generateKey(contact);
 
-    return _.has(dictionary.nameAddresses, key);
+    if(_.has(dictionary.nameAddresses, nameAddressKey))
+      return true;
+
+    //Use Levenshtein to check the existing dictionary keys to see if they are close enough to consider it a duplicate.
+    //A distance of 2 is probably close enough.
+    let isDuplicate = false;
+    let distanceForMatch = 2;
+
+    _.forOwn(dictionary.nameAddresses, (val, key) =>{
+      isDuplicate = levenshtein(key, nameAddressKey) <= distanceForMatch;
+
+      if(isDuplicate)
+        return false;
+    });
+
+    return isDuplicate;
   }
 
   static addDuplicateContact(contact, dictionary) {
@@ -38,6 +54,6 @@ export default class nameAddressDuplicateChecker{
     let key = this.generateKey(contact);
 
     if(!_.has(dictionary.nameAddresses, key))
-      dictionary.emails[contact.key] = true;
+      dictionary.nameAddresses[key] = true;
   }
 }

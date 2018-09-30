@@ -74,4 +74,40 @@ describe('NameAddressDuplicateChecker', () => {
     expect(isDuplicate2).toBe(true);
     expect(isDuplicate3).toBe(true);
   });
+
+  it('will identify a duplicate name address combo by key with slightly distant spellings', () => {
+    let contact1 = new Contact();
+    contact1.firstName = 'Jonathan';
+    contact1.lastName = 'Smith';
+    contact1.address1 = '555 Some Street';
+    contact1.zip = '12345';
+
+    let contact2 = new Contact();
+    contact2.firstName = 'John';
+    contact2.lastName = 'Smythers';
+    contact2.address1 = '555 Some Street';
+    contact2.zip = '12345';
+
+    let dictionary = { nameAddresses: { 'JN SM0 555 Some Street 12345': true } };
+
+    let isDuplicate1 = NameAddressDuplicateChecker.checkContact(contact1, dictionary);
+    let isDuplicate2 = NameAddressDuplicateChecker.checkContact(contact2, dictionary);
+
+    expect(isDuplicate1).toBe(true);
+    expect(isDuplicate2).toBe(true);
+  });
+
+  it('will add a the key of an already identified duplicate contact', () => {
+    let contact = new Contact();
+    contact.firstName = 'Jon';
+    contact.lastName = 'Smith';
+    contact.address1 = '555 Some Street';
+    contact.zip = '12345';
+
+    let dictionary = { nameAddresses: { } };
+
+    NameAddressDuplicateChecker.addDuplicateContact(contact, dictionary);
+
+    expect(dictionary.nameAddresses['JN SM0 555 Some Street 12345']).toBe(true);
+  });
 });
