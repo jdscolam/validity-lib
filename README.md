@@ -2,6 +2,9 @@
 A fun little library for determining duplicate contacts.  There are both normal and advanced datasets for you to play with in the `/data` directory.
 
 ## Installation
+**Prerequisites**
+1. Ensure you have the current version of Node.js or the latest LTS version.  This was tested on version `10.11`.
+
 Simply `clone` or `fork` the repository then run:
 ```
 npm install
@@ -28,3 +31,4 @@ npm test
 1. Performance will definitely start to degrade if you have more than 3k - 4k nameAddress keys and you start to have lots of obscure, and kind of similar names.  This is really due to the distance function.  Frankly optimizing the search around alphabetical order may help resolve that.
 1. the nameAddress keys should likely be generated up-front at parsing time by the contact itself.  That would be a good/simple refactor which would make things easier to read and faster to execute.
 1. Metaphone 3 is likely a better/faster way of handling the names, however it's ~$260 for a license right now
+1. The duplicateContactProvider could use some additional CQS work to help clean up the logic
