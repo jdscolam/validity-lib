@@ -2,10 +2,10 @@ import _ from 'lodash';
 
 export default class EmailDuplicateChecker{
   static checkContact(contact, dictionary){
-    if(!contact)
+    if(!_.isObject(contact))
       throw 'No contact passed in';
 
-    if(!dictionary)
+    if(!_.isObject(dictionary))
       throw 'No dictionary passed in';
 
     if(!_.has(dictionary, 'emails')){
@@ -18,10 +18,10 @@ export default class EmailDuplicateChecker{
   }
 
   static addContact(contact, dictionary) {
-    if(!contact)
+    if(!_.isObject(contact))
       throw 'No contact passed in';
 
-    if(!dictionary)
+    if(!_.isObject(dictionary))
       throw 'No dictionary passed in';
 
     if(!_.has(dictionary.emails, contact.email))
@@ -29,10 +29,10 @@ export default class EmailDuplicateChecker{
   }
 
   static setMasterUuid(masterUuid, contact, dictionary) {
-    if(!contact)
+    if(!_.isObject(contact))
       throw 'No contact passed in';
 
-    if(!dictionary)
+    if(!_.isObject(dictionary))
       throw 'No dictionary passed in';
 
     dictionary.emails[contact.email] = masterUuid;

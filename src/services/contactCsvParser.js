@@ -4,13 +4,9 @@ import Contact from "../model/contact";
 
 export default class ContactCsvParser {
 
-  static parseRecord(record) {
-    if(!_.isString(record))
-      return null;
+  static parseRecord(recordArray) {
 
     //TODO: Add validation that the record is really a record of the correct size, etc.
-
-    let recordArray = _.split(record, ',');
 
     let contact = new Contact();
     contact.id = recordArray[0];
@@ -36,7 +32,7 @@ export default class ContactCsvParser {
 
     //TODO: Further pre-processing and validation of the records string, possibly standardizing newlines, etc.
 
-    let recordsArray = _.split(records, '\n');
+    let recordsArray = this.csvToArray(records);
 
     if(recordsArray.length <= 1)
       return [];
@@ -59,4 +55,21 @@ export default class ContactCsvParser {
 
     return parsedRecords;
   }
+
+  //NOTE:  Attribution for this function goes to @niry on Stack Overflow (https://stackoverflow.com/questions/8493195/how-can-i-parse-a-csv-string-with-javascript-which-contains-comma-in-data)
+  static csvToArray(text) {
+    let p = '', row = [''], ret = [row], i = 0, r = 0, s = !0, l;
+    for (l of text) {
+      if ('"' === l) {
+        if (s && l === p) row[i] += l;
+        s = !s;
+      } else if (',' === l && s) l = row[++i] = '';
+      else if ('\n' === l && s) {
+        if ('\r' === p) row[i] = row[i].slice(0, -1);
+        row = ret[++r] = [l = '']; i = 0;
+      } else row[i] += l;
+      p = l;
+    }
+    return ret;
+  };
 }

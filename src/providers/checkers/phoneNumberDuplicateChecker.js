@@ -2,10 +2,10 @@ import _ from 'lodash';
 
 export default class PhoneNumberDuplicateChecker{
   static checkContact(contact, dictionary){
-    if(!contact)
+    if(!_.isObject(contact))
       throw 'No contact passed in';
 
-    if(!dictionary)
+    if(!_.isObject(dictionary))
       throw 'No dictionary passed in';
 
     if(!_.has(dictionary, 'phoneNumbers')){
@@ -18,10 +18,10 @@ export default class PhoneNumberDuplicateChecker{
   }
 
   static addContact(contact, dictionary) {
-    if(!contact)
+    if(!_.isObject(contact))
       throw 'No contact passed in';
 
-    if(!dictionary)
+    if(!_.isObject(dictionary))
       throw 'No dictionary passed in';
 
     if(!_.has(dictionary.phoneNumbers, contact.phone))
@@ -29,10 +29,10 @@ export default class PhoneNumberDuplicateChecker{
   }
 
   static setMasterUuid(masterUuid, contact, dictionary) {
-    if(!contact)
+    if(!_.isObject(contact))
       throw 'No contact passed in';
 
-    if(!dictionary)
+    if(!_.isObject(dictionary))
       throw 'No dictionary passed in';
 
     dictionary.phoneNumbers[contact.phone] = masterUuid;

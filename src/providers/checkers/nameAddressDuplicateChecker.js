@@ -2,7 +2,7 @@ import _ from 'lodash';
 import metaphone from 'metaphone';
 import levenshtein from 'js-levenshtein';
 
-export default class nameAddressDuplicateChecker{
+export default class NameAddressDuplicateChecker{
   static generateKey(contact){
     if(!contact)
       throw 'No contact passed in';
@@ -18,10 +18,10 @@ export default class nameAddressDuplicateChecker{
   }
 
   static checkContact(contact, dictionary){
-    if(!contact)
+    if(!_.isObject(contact))
       throw 'No contact passed in';
 
-    if(!dictionary)
+    if(!_.isObject(dictionary))
       throw 'No dictionary passed in';
 
     if(!_.has(dictionary, 'nameAddresses')){
@@ -51,10 +51,10 @@ export default class nameAddressDuplicateChecker{
   }
 
   static addContact(contact, dictionary) {
-    if(!contact)
+    if(!_.isObject(contact))
       throw 'No contact passed in';
 
-    if(!dictionary)
+    if(!_.isObject(dictionary))
       throw 'No dictionary passed in';
 
     let key = this.generateKey(contact);
@@ -64,10 +64,10 @@ export default class nameAddressDuplicateChecker{
   }
 
   static setMasterUuid(masterUuid, contact, dictionary) {
-    if(!contact)
+    if(!_.isObject(contact))
       throw 'No contact passed in';
 
-    if(!dictionary)
+    if(!_.isObject(dictionary))
       throw 'No dictionary passed in';
 
     let key = this.generateKey(contact);

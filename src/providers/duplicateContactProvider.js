@@ -10,8 +10,7 @@ export default class DuplicateContactProvider
     if(!_.isArray(checkers) || _.isEmpty(checkers))
       checkers = [];
 
-    if(!_.isObject(dictionary))
-      dictionary = {};
+    let internalDictionary = _.isObject(dictionary) ? dictionary : {};
 
     let contacts = new Contacts();
 
@@ -22,7 +21,7 @@ export default class DuplicateContactProvider
         return true;
       }
 
-      this.executeCheckers(checkers, contact, contacts, dictionary);
+      this.executeCheckers(checkers, contact, contacts, internalDictionary);
     });
 
     return contacts;
@@ -32,8 +31,10 @@ export default class DuplicateContactProvider
     let masterUuid = null;
     let uuidUpdateFunctions = [];
 
+
     _.forEach(checkers, checker => {
-      masterUuid = this.checkContact(checker, contact, contacts, dictionary);
+      if(masterUuid === null)
+        masterUuid = this.checkContact(checker, contact, contacts, dictionary);
 
       if(masterUuid === null){
         uuidUpdateFunctions.push(checker.setMasterUuid);
@@ -53,7 +54,7 @@ export default class DuplicateContactProvider
   }
 
   static checkContact(checker, contact, contacts, dictionary){
-    let masterUuid = checker.checkContact(contact);
+    let masterUuid = checker.checkContact(contact, dictionary);
 
     if(masterUuid === null){
       checker.addContact(contact, dictionary);

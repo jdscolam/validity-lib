@@ -4,9 +4,9 @@ import _ from "lodash";
 describe('ContactCsvParser', () => {
   it('parses an individual contact', () => {
     let record = '9,Merrily,Jerram,"Cummings, Batz and Romaguera",mjerram8@umich.edu,66735 Lakeland Center,Apt 13,64101,Kansas City,Missouri,MO,816-717-3307';
-    let recordArray = _.split(record, ',');
+    let recordArray = ContactCsvParser.csvToArray(record)[0];
 
-    let contact = ContactCsvParser.parseRecord(record);
+    let contact = ContactCsvParser.parseRecord(recordArray);
 
     expect(contact).not.toBeNull();
     expect(contact.id).toBe(recordArray[0]);
@@ -25,8 +25,9 @@ describe('ContactCsvParser', () => {
 
   it('generates a uuid on parsing', () => {
     let record = '9,Merrily,Jerram,"Cummings, Batz and Romaguera",mjerram8@umich.edu,66735 Lakeland Center,Apt 13,64101,Kansas City,Missouri,MO,816-717-3307';
+    let recordArray = ContactCsvParser.csvToArray(record)[0];
 
-    let contact = ContactCsvParser.parseRecord(record);
+    let contact = ContactCsvParser.parseRecord(recordArray);
 
     expect(contact.uuid).not.toBeNull();
   });
