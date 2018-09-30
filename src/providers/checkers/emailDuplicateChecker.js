@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-export default class PhoneNumberDuplicateChecker{
+export default class EmailDuplicateChecker{
   static checkContact(contact, dictionary){
     if(!contact)
       throw 'No contact passed in';
@@ -8,7 +8,7 @@ export default class PhoneNumberDuplicateChecker{
     if(!dictionary)
       throw 'No dictionary passed in';
 
-    return _.has(dictionary.phoneNumbers, contact.phone);
+    return _.has(dictionary.emails, contact.email);
   }
 
   static addDuplicateContact(contact, dictionary) {
@@ -18,7 +18,7 @@ export default class PhoneNumberDuplicateChecker{
     if(!dictionary)
       throw 'No dictionary passed in';
 
-    if(!_.has(dictionary.phoneNumbers, contact.phone))
-      dictionary.phoneNumbers[contact.phone] = true;
+    if(!_.has(dictionary.emails, contact.email))
+      dictionary.emails[contact.email] = true;
   }
 }

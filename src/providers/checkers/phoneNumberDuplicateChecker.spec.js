@@ -1,5 +1,5 @@
 import PhoneNumberDuplicateChecker from './phoneNumberDuplicateChecker';
-import Contact from "../../model/contact";
+import Contact from '../../model/contact';
 
 describe('PhoneNumberDuplicateChecker', () => {
   it('will identify a unique phone number', () => {
