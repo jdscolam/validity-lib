@@ -1,3 +1,4 @@
+import uuid from 'uuid/v4';
 import Contacts from './contacts';
 import Contact from './contact';
 
@@ -12,6 +13,7 @@ describe('Contacts', () => {
 
     let contactA = new Contact();
     contactA.id = 'a';
+    contactA.uuid = uuid();
     contactA.firstName = 'a';
     contactA.lastName = 'a';
     contactA.company = 'a';
@@ -26,6 +28,7 @@ describe('Contacts', () => {
 
     let contactB = new Contact();
     contactB.id = 'b';
+    contactB.uuid = uuid();
     contactB.firstName = 'b';
     contactB.lastName = 'b';
     contactB.company = 'b';
@@ -39,8 +42,10 @@ describe('Contacts', () => {
     contactB.phone = 'b';
 
     let contacts = new Contacts();
-    contacts.potentialDuplicateContacts.push(contactA, contactB);
-    contacts.uniqueContacts.push(contactA, contactB);
+    contacts.potentialDuplicateContacts[contactA.uuid] = [];
+    contacts.potentialDuplicateContacts[contactA.uuid].push(contactA, contactB);
+    contacts.uniqueContacts[contactA.uuid] = contactA;
+    contacts.uniqueContacts[contactB.uuid] = contactB;
 
     let printableString = contacts.getPrintableString();
 
