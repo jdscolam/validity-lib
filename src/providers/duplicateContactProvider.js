@@ -5,7 +5,7 @@ export default class DuplicateContactProvider
 {
   static process(contactRecords, checkers, dictionary){
     if(!contactRecords)
-      return new Contacts();
+      return {contacts: new Contacts(), dictionary: dictionary};
 
     if(!_.isArray(checkers) || _.isEmpty(checkers))
       checkers = [];
@@ -24,7 +24,7 @@ export default class DuplicateContactProvider
       this.executeCheckers(checkers, contact, contacts, internalDictionary);
     });
 
-    return contacts;
+    return {contacts: contacts, dictionary: internalDictionary};
   }
 
   static executeCheckers(checkers, contact, contacts, dictionary){

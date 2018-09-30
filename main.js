@@ -11,19 +11,19 @@ import NameAddressDuplicateChecker from './src/providers/checkers/nameAddressDup
   const advancedData = await readFile('./data/advanced.csv');
 
   let normalRecords = ContactCsvParser.parseRecords(normalData.toString());
-  let normalContacts = DuplicateContactProvider.process(normalRecords, [EmailDuplicateChecker, PhoneDuplicateChecker, NameAddressDuplicateChecker]);
-  let normalContactsJSON = JSON.stringify(normalContacts);
+  let normalResults = DuplicateContactProvider.process(normalRecords, [EmailDuplicateChecker, PhoneDuplicateChecker, NameAddressDuplicateChecker]);
+  let normalContactsJSON = JSON.stringify(normalResults.contacts);
 
   let advancedRecords = ContactCsvParser.parseRecords(advancedData.toString());
-  let advancedContacts = DuplicateContactProvider.process(advancedRecords, [EmailDuplicateChecker, PhoneDuplicateChecker, NameAddressDuplicateChecker]);
-  let advancedContactsJSON = JSON.stringify(advancedContacts);
+  let advancedResults = DuplicateContactProvider.process(advancedRecords, [EmailDuplicateChecker, PhoneDuplicateChecker, NameAddressDuplicateChecker]);
+  let advancedContactsJSON = JSON.stringify(advancedResults.contacts);
 
   console.log('\nNormal JSON Contacts\n');
   console.log(normalContactsJSON);
   console.log('\nAdvanced JSON Contacts\n');
   console.log(advancedContactsJSON);
   console.log('\nNormal Contacts Pretty Printing');
-  console.log(normalContacts.getPrintableString());
+  console.log(normalResults.contacts.getPrintableString());
   console.log('Advanced Contacts Pretty Printing');
-  console.log(advancedContacts.getPrintableString());
+  console.log(advancedResults.contacts.getPrintableString());
 })();

@@ -42,7 +42,7 @@ describe('DuplicateContactProvider', function() {
   });
 
   it('processes contact records', function() {
-    let contacts = DuplicateContactProvider.process(contactRecords);
+    let contacts = DuplicateContactProvider.process(contactRecords).contacts;
 
     expect(contacts).not.toBeNull();
     expect(_.isEmpty(contacts.uniqueContacts)).toBe(false);
@@ -158,6 +158,8 @@ describe('DuplicateContactProvider', function() {
   });
 
   it('generates a dictionary if none is provided', function() {
-    DuplicateContactProvider.process(contactRecords, []);
+    let dictionary = DuplicateContactProvider.process(contactRecords, []).dictionary;
+
+    expect(_.isObject(dictionary)).toBe(true);
   });
 });
