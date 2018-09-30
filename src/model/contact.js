@@ -3,6 +3,7 @@ import _ from 'lodash';
 export default class Contact{
   constructor(){
     this.id = '';
+    this.uuid = '';
     this.firstName = '';
     this.lastName = '';
     this.company = '';

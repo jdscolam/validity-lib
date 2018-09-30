@@ -23,6 +23,14 @@ describe('ContactCsvParser', () => {
     expect(contact.phone).toBe(recordArray[11]);
   });
 
+  it('generates a uuid on parsing', () => {
+    let record = '9,Merrily,Jerram,"Cummings, Batz and Romaguera",mjerram8@umich.edu,66735 Lakeland Center,Apt 13,64101,Kansas City,Missouri,MO,816-717-3307';
+
+    let contact = ContactCsvParser.parseRecord(record);
+
+    expect(contact.uuid).not.toBeNull();
+  });
+
   //TODO:  Add tests that reflect record validation/verification (i.e. is this a real record that we should worry about)
 
   it('prepares records for processing', () => {

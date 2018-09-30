@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import uuid from 'uuid/v4';
 import Contact from "../model/contact";
 
 export default class ContactCsvParser {
@@ -13,6 +14,7 @@ export default class ContactCsvParser {
 
     let contact = new Contact();
     contact.id = recordArray[0];
+    contact.uuid = uuid();
     contact.firstName = recordArray[1];
     contact.lastName = recordArray[2];
     contact.company = _.replace(recordArray[3], '"', '');
