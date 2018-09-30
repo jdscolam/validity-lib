@@ -1,6 +1,6 @@
 import NameAddressDuplicateChecker from './nameAddressDuplicateChecker';
 import Contact from '../../model/contact';
-import EmailDuplicateChecker from "./emailDuplicateChecker";
+import uuid from 'uuid/v4';
 
 describe('NameAddressDuplicateChecker', () => {
   it('generates a key from the name address and zip', () => {
@@ -109,5 +109,21 @@ describe('NameAddressDuplicateChecker', () => {
     NameAddressDuplicateChecker.addContact(contact, dictionary);
 
     expect(dictionary.nameAddresses['JN SM0 555 Some Street 12345']).toBe(true);
+  });
+
+  it('will set the master record id', () => {
+    let masterUuid = uuid();
+
+    let contact = new Contact();
+    contact.firstName = 'Jon';
+    contact.lastName = 'Smith';
+    contact.address1 = '555 Some Street';
+    contact.zip = '12345';
+
+    let dictionary = { nameAddresses: { } };
+
+    NameAddressDuplicateChecker.setMasterUuid(masterUuid, contact, dictionary);
+
+    expect(dictionary.nameAddresses['JN SM0 555 Some Street 12345']).toBe(masterUuid);
   });
 });

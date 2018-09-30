@@ -56,4 +56,16 @@ export default class nameAddressDuplicateChecker{
     if(!_.has(dictionary.nameAddresses, key))
       dictionary.nameAddresses[key] = true;
   }
+
+  static setMasterUuid(masterUuid, contact, dictionary) {
+    if(!contact)
+      throw 'No contact passed in';
+
+    if(!dictionary)
+      throw 'No dictionary passed in';
+
+    let key = this.generateKey(contact);
+
+    dictionary.nameAddresses[key] = masterUuid;
+  }
 }

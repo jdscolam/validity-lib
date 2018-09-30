@@ -1,5 +1,6 @@
 import PhoneNumberDuplicateChecker from './phoneNumberDuplicateChecker';
 import Contact from '../../model/contact';
+import uuid from 'uuid/v4';
 
 describe('PhoneNumberDuplicateChecker', () => {
   it('will identify a unique phone number', () => {
@@ -33,5 +34,18 @@ describe('PhoneNumberDuplicateChecker', () => {
     PhoneNumberDuplicateChecker.addContact(contact, dictionary);
 
     expect(dictionary.phoneNumbers[contact.phone]).toBe(true);
+  });
+
+  it('will set the master record id', () => {
+    let masterUuid = uuid();
+
+    let contact = new Contact();
+    contact.phone = '555-555-5555';
+
+    let dictionary = { phoneNumbers: { } };
+
+    PhoneNumberDuplicateChecker.setMasterUuid(masterUuid, contact, dictionary);
+
+    expect(dictionary.phoneNumbers[contact.phone]).toBe(masterUuid);
   });
 });

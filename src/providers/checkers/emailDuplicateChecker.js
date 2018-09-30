@@ -19,6 +19,16 @@ export default class EmailDuplicateChecker{
       throw 'No dictionary passed in';
 
     if(!_.has(dictionary.emails, contact.email))
-      dictionary.emails[contact.email] = true;
+      dictionary.emails[contact.email] = contact.uuid;
+  }
+
+  static setMasterUuid(masterUuid, contact, dictionary) {
+    if(!contact)
+      throw 'No contact passed in';
+
+    if(!dictionary)
+      throw 'No dictionary passed in';
+
+    dictionary.emails[contact.email] = masterUuid;
   }
 }

@@ -1,3 +1,4 @@
+import uuid from 'uuid/v4';
 import EmailDuplicateChecker from './emailDuplicateChecker';
 import Contact from '../../model/contact';
 
@@ -17,7 +18,7 @@ describe('EmailDuplicateChecker', () => {
     let contact = new Contact();
     contact.email = 'test@test.com';
 
-    let dictionary = { emails: { 'test@test.com': true } };
+    let dictionary = { emails: { 'test@test.com': uuid() } };
 
     let isDuplicate = EmailDuplicateChecker.checkContact(contact, dictionary);
 
@@ -32,6 +33,19 @@ describe('EmailDuplicateChecker', () => {
 
     EmailDuplicateChecker.addContact(contact, dictionary);
 
-    expect(dictionary.emails[contact.email]).toBe(true);
+    expect(dictionary.emails[contact.email]).toBe(contact.uuid);
+  });
+
+  it('will set the master record id', () => {
+    let masterUuid = uuid();
+
+    let contact = new Contact();
+    contact.email = 'test@test.com';
+
+    let dictionary = { emails: { } };
+
+    EmailDuplicateChecker.setMasterUuid(masterUuid, contact, dictionary);
+
+    expect(dictionary.emails[contact.email]).toBe(masterUuid);
   });
 });

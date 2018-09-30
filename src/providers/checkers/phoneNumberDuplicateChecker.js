@@ -21,4 +21,14 @@ export default class PhoneNumberDuplicateChecker{
     if(!_.has(dictionary.phoneNumbers, contact.phone))
       dictionary.phoneNumbers[contact.phone] = true;
   }
+
+  static setMasterUuid(masterUuid, contact, dictionary) {
+    if(!contact)
+      throw 'No contact passed in';
+
+    if(!dictionary)
+      throw 'No dictionary passed in';
+
+    dictionary.phoneNumbers[contact.phone] = masterUuid;
+  }
 }
