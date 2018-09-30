@@ -9,20 +9,22 @@ describe('EmailDuplicateChecker', () => {
 
     let dictionary = { emails: {} };
 
-    let isDuplicate = EmailDuplicateChecker.checkContact(contact, dictionary);
+    let duplicateUuid = EmailDuplicateChecker.checkContact(contact, dictionary);
 
-    expect(isDuplicate).toBe(false);
+    expect(duplicateUuid).toBeNull();
   });
 
   it('will identify a duplicate email', () => {
+    let masterUuid = uuid();
+
     let contact = new Contact();
     contact.email = 'test@test.com';
 
-    let dictionary = { emails: { 'test@test.com': uuid() } };
+    let dictionary = { emails: { 'test@test.com': masterUuid } };
 
-    let isDuplicate = EmailDuplicateChecker.checkContact(contact, dictionary);
+    let duplicateUuid = EmailDuplicateChecker.checkContact(contact, dictionary);
 
-    expect(isDuplicate).toBe(true);
+    expect(duplicateUuid).toBe(masterUuid);
   });
 
   it('will add the email of the contact in order to identify future duplicates', () => {

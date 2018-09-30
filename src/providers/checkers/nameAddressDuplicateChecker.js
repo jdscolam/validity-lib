@@ -27,21 +27,21 @@ export default class nameAddressDuplicateChecker{
     let nameAddressKey = this.generateKey(contact);
 
     if(_.has(dictionary.nameAddresses, nameAddressKey))
-      return true;
+      return dictionary.nameAddresses[nameAddressKey];
 
     //Use Levenshtein to check the existing dictionary keys to see if they are close enough to consider it a duplicate.
     //A distance of 2 is probably close enough.
-    let isDuplicate = false;
+    let duplicateUuid = null;
     let distanceForMatch = 2;
 
     _.forOwn(dictionary.nameAddresses, (val, key) =>{
-      isDuplicate = levenshtein(key, nameAddressKey) <= distanceForMatch;
+      duplicateUuid = levenshtein(key, nameAddressKey) <= distanceForMatch ? val : null;
 
-      if(isDuplicate)
+      if(duplicateUuid)
         return false;
     });
 
-    return isDuplicate;
+    return duplicateUuid;
   }
 
   static addContact(contact, dictionary) {
@@ -54,7 +54,7 @@ export default class nameAddressDuplicateChecker{
     let key = this.generateKey(contact);
 
     if(!_.has(dictionary.nameAddresses, key))
-      dictionary.nameAddresses[key] = true;
+      dictionary.nameAddresses[key] = contact.uuid;
   }
 
   static setMasterUuid(masterUuid, contact, dictionary) {

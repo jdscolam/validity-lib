@@ -8,7 +8,7 @@ export default class PhoneNumberDuplicateChecker{
     if(!dictionary)
       throw 'No dictionary passed in';
 
-    return _.has(dictionary.phoneNumbers, contact.phone);
+    return _.has(dictionary.phoneNumbers, contact.phone) ? dictionary.phoneNumbers[contact.phone] : null;
   }
 
   static addContact(contact, dictionary) {
@@ -19,7 +19,7 @@ export default class PhoneNumberDuplicateChecker{
       throw 'No dictionary passed in';
 
     if(!_.has(dictionary.phoneNumbers, contact.phone))
-      dictionary.phoneNumbers[contact.phone] = true;
+      dictionary.phoneNumbers[contact.phone] = contact.uuid;
   }
 
   static setMasterUuid(masterUuid, contact, dictionary) {
