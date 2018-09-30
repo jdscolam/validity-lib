@@ -1,4 +1,5 @@
 import readFile from 'fs-readfile-promise';
+import _ from 'lodash';
 import ContactCsvParser from './src/services/contactCsvParser';
 import Contacts from "./src/model/contacts";
 
@@ -10,7 +11,7 @@ import Contacts from "./src/model/contacts";
   let records = ContactCsvParser.parseRecords(normalData.toString());
 
   let contacts = new Contacts();
-  contacts.uniqueContacts = records;
+  contacts.uniqueContacts = _.keyBy(records, x => x.uuid);
 
   let contactsJSON = JSON.stringify(contacts);
   console.log(contactsJSON);
