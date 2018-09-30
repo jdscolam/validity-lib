@@ -44,7 +44,7 @@ export default class nameAddressDuplicateChecker{
     return isDuplicate;
   }
 
-  static addDuplicateContact(contact, dictionary) {
+  static addContact(contact, dictionary) {
     if(!contact)
       throw 'No contact passed in';
 

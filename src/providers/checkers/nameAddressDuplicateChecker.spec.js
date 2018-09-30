@@ -97,7 +97,7 @@ describe('NameAddressDuplicateChecker', () => {
     expect(isDuplicate2).toBe(true);
   });
 
-  it('will add a the key of an already identified duplicate contact', () => {
+  it('will add the name address key of a contact in order to identify future duplicates', () => {
     let contact = new Contact();
     contact.firstName = 'Jon';
     contact.lastName = 'Smith';
@@ -106,7 +106,7 @@ describe('NameAddressDuplicateChecker', () => {
 
     let dictionary = { nameAddresses: { } };
 
-    NameAddressDuplicateChecker.addDuplicateContact(contact, dictionary);
+    NameAddressDuplicateChecker.addContact(contact, dictionary);
 
     expect(dictionary.nameAddresses['JN SM0 555 Some Street 12345']).toBe(true);
   });

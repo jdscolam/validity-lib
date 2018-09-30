@@ -24,13 +24,13 @@ describe('EmailDuplicateChecker', () => {
     expect(isDuplicate).toBe(true);
   });
 
-  it('will add a the email of an already identified duplicate contact', () => {
+  it('will add the email of the contact in order to identify future duplicates', () => {
     let contact = new Contact();
     contact.email = 'test@test.com';
 
     let dictionary = { emails: { } };
 
-    EmailDuplicateChecker.addDuplicateContact(contact, dictionary);
+    EmailDuplicateChecker.addContact(contact, dictionary);
 
     expect(dictionary.emails[contact.email]).toBe(true);
   });

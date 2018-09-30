@@ -24,13 +24,13 @@ describe('PhoneNumberDuplicateChecker', () => {
     expect(isDuplicate).toBe(true);
   });
 
-  it('will add a the phone number of an already identified duplicate contact', () => {
+  it('will add the phone number a contact in order to identify future duplicates', () => {
     let contact = new Contact();
     contact.phone = '555-555-5555';
 
     let dictionary = { phoneNumbers: { } };
 
-    PhoneNumberDuplicateChecker.addDuplicateContact(contact, dictionary);
+    PhoneNumberDuplicateChecker.addContact(contact, dictionary);
 
     expect(dictionary.phoneNumbers[contact.phone]).toBe(true);
   });

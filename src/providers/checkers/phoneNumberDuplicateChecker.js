@@ -11,7 +11,7 @@ export default class PhoneNumberDuplicateChecker{
     return _.has(dictionary.phoneNumbers, contact.phone);
   }
 
-  static addDuplicateContact(contact, dictionary) {
+  static addContact(contact, dictionary) {
     if(!contact)
       throw 'No contact passed in';
 
